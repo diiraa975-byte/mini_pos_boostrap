@@ -1,182 +1,120 @@
 
-// ========================================
-// MINI POS - LAVENDER DIGITAL CASHIER
-// ========================================
-
-// FORMAT RUPIAH
-function rupiah(angka) {
-    return new Intl.NumberFormat("id-ID", {
-        style: "currency",
-        currency: "IDR",
-        maximumFractionDigits: 0
-    }).format(angka);
-}
-
-// TANGGAL
-document.getElementById("tanggal")?.textContent;
-const tanggal = document.getElementById("tanggal");
-if (tanggal) {
-    tanggal.textContent = new Date().toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-    });
-}
-
-// DATA PRODUK
 const produkAwal = [
-    {
-        id: 1, nama: "Indomie Goreng", kategori: "Makanan",
-        harga: 3500, stok: 30,
-        gambar: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500"
-    },
-    {
-        id: 2, nama: "Roti Cokelat", kategori: "Makanan",
-        harga: 5000, stok: 20,
-        gambar: "https://images.unsplash.com/photo-1608198093002-ad4e005484e3?w=500"
-    },
-    {
-        id: 3, nama: "Kentang Goreng", kategori: "Makanan",
-        harga: 10000, stok: 15,
-        gambar: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500"
-    },
-    {
-        id: 4, nama: "Donat", kategori: "Makanan",
-        harga: 4000, stok: 25,
-        gambar: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500"
-    },
-    {
-        id: 5, nama: "Burger", kategori: "Makanan",
-        harga: 15000, stok: 12,
-        gambar: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
-    },
-    {
-        id: 6, nama: "Es Teh", kategori: "Minuman",
-        harga: 5000, stok: 30,
-        gambar: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500"
-    },
-    {
-        id: 7, nama: "Jus Jeruk", kategori: "Minuman",
-        harga: 8000, stok: 18,
-        gambar: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500"
-    },
-    {
-        id: 8, nama: "Air Mineral", kategori: "Minuman",
-        harga: 4000, stok: 40,
-        gambar: "https://images.unsplash.com/photo-1560023907-5f339617ea30?w=500"
-    },
-    {
-        id: 9, nama: "Kopi Susu", kategori: "Minuman",
-        harga: 10000, stok: 16,
-        gambar: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500"
-    },
-    {
-        id: 10, nama: "Susu Cokelat", kategori: "Minuman",
-        harga: 7000, stok: 22,
-        gambar: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=500"
-    }
+    {id: 1, nama: "Nasi Goreng", kategori: "Makanan", harga: 15000, stok: 20, gambar: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=500"},
+    {id: 2, nama: "Mie Goreng", kategori: "Makanan", harga: 12000, stok: 15, gambar: "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=500"},
+    {id: 3, nama: "Ayam Geprek", kategori: "Makanan", harga: 18000, stok: 12, gambar: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=500"},
+    {id: 4, nama: "Burger", kategori: "Makanan", harga: 20000, stok: 10, gambar: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"},
+    {id: 5, nama: "Pizza", kategori: "Makanan", harga: 25000, stok: 8, gambar: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"},
+    {id: 6, nama: "Kentang Goreng", kategori: "Makanan", harga: 10000, stok: 20, gambar: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500"},
+    {id: 7, nama: "Sate Ayam", kategori: "Makanan", harga: 18000, stok: 14, gambar: "https://images.unsplash.com/photo-1529563021893-cc83c992d75d?w=500"},
+    {id: 8, nama: "Roti Bakar", kategori: "Makanan", harga: 12000, stok: 16, gambar: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500"},
+    {id: 9, nama: "Es Teh", kategori: "Minuman", harga: 5000, stok: 30, gambar: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500"},
+    {id: 10, nama: "Jus Jeruk", kategori: "Minuman", harga: 8000, stok: 18, gambar: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500"},
+    {id: 11, nama: "Kopi Susu", kategori: "Minuman", harga: 12000, stok: 15, gambar: "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500"},
+    {id: 12, nama: "Air Mineral", kategori: "Minuman", harga: 4000, stok: 40, gambar: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500"}
 ];
 
-// LOCAL STORAGE
-let produk = JSON.parse(localStorage.getItem("produkPOS"));
-
-if (!Array.isArray(produk)) {
-    produk = produkAwal;
-    simpanProduk();
-}
-
-let keranjang = [];
+let produk = JSON.parse(localStorage.getItem("produkPOS")) || produkAwal;
 let riwayat = JSON.parse(localStorage.getItem("riwayatPOS")) || [];
+let keranjang = [];
 
-// SIMPAN DATA
-function simpanProduk() {
+function simpanData() {
     localStorage.setItem("produkPOS", JSON.stringify(produk));
-}
-
-function simpanRiwayat() {
     localStorage.setItem("riwayatPOS", JSON.stringify(riwayat));
 }
 
-// STATUS STOK
-function statusStok(stok) {
-    if (stok === 0) {
-        return `<span class="badge bg-danger stock-badge">Stok Habis</span>`;
-    }
-
-    if (stok < 5) {
-        return `<span class="badge bg-warning text-dark stock-badge">Stok Menipis</span>`;
-    }
-
-    return `<span class="badge bg-success stock-badge">Stok Aman</span>`;
+function rupiah(angka) {
+    return "Rp" + Number(angka).toLocaleString("id-ID");
 }
 
-// TAMPILKAN PRODUK
+function aman(teks) {
+    return String(teks).replace(/[&<>"']/g, karakter => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[karakter]);
+}
+
+function tanggalSekarang() {
+    return new Date().toLocaleDateString("id-ID");
+}
+
+function tanggalWaktu() {
+    return new Date().toLocaleString("id-ID");
+}
+
+function perbaruiTampilan() {
+    document.getElementById("tanggal").textContent = tanggalSekarang();
+
+    let transaksiHariIni = riwayat.filter(item =>
+        new Date(item.waktu).toDateString() === new Date().toDateString()
+    );
+
+    let omzet = transaksiHariIni.reduce((total, item) => total + item.total, 0);
+    let stok = produk.reduce((total, item) => total + Number(item.stok), 0);
+
+    document.getElementById("omzet").textContent = rupiah(omzet);
+    document.getElementById("totalStok").textContent = stok;
+    document.getElementById("jumlahTransaksi").textContent = transaksiHariIni.length;
+
+    tampilkanProduk();
+    tampilkanKeranjang();
+    tampilkanRiwayat();
+}
+
 function tampilkanProduk() {
     const tempat = document.getElementById("daftarProduk");
-
-    const pencarian = document.getElementById("searchProduk").value.toLowerCase();
+    const cari = document.getElementById("searchProduk").value.toLowerCase();
     const kategori = document.getElementById("filterKategori").value;
 
-    const hasil = produk.filter(p =>
-        p.nama.toLowerCase().includes(pencarian) &&
-        (kategori === "Semua" || p.kategori === kategori)
+    const hasil = produk.filter(item =>
+        item.nama.toLowerCase().includes(cari) &&
+        (kategori === "Semua" || item.kategori === kategori)
     );
 
     tempat.innerHTML = "";
 
     if (hasil.length === 0) {
-        tempat.innerHTML = `
-            <div class="col-12 text-center text-secondary py-4">
-                <i class="bi bi-search fs-1"></i>
-                <p>Produk tidak ditemukan.</p>
-            </div>`;
+        tempat.innerHTML = `<p class="text-center text-secondary">Produk tidak ditemukan.</p>`;
         return;
     }
 
-    hasil.forEach(p => {
+    hasil.forEach(item => {
+        let badge = item.stok === 0
+            ? `<span class="badge badge-habis">Stok Habis</span>`
+            : item.stok < 5
+                ? `<span class="badge badge-menipis">Stok Menipis</span>`
+                : `<span class="badge badge-aman">Stok Aman</span>`;
+
         tempat.innerHTML += `
-            <div class="col-6 col-md-4 col-lg-3">
-                <div class="card product-card">
+            <div class="col-md-6 col-xl-4">
+                <div class="card produk-card">
+                    <img src="${aman(item.gambar)}" alt="${aman(item.nama)}"
+                         onerror="this.src='https://placehold.co/500x300?text=Produk'">
 
-                    <img src="${p.gambar}"
-                        class="product-img"
-                        alt="${p.nama}"
-                        onerror="this.onerror=null;this.src='https://placehold.co/400x250?text=Produk'">
+                    <div class="p-3">
+                        <h6 class="fw-bold">${aman(item.nama)}</h6>
+                        <small class="text-secondary">${aman(item.kategori)}</small>
+                        <h6 class="mt-2" style="color:#8060c1">${rupiah(item.harga)}</h6>
 
-                    <div class="card-body">
-                        <h6 class="fw-bold">${p.nama}</h6>
-
-                        <small class="text-secondary">${p.kategori}</small>
-
-                        <div class="my-2">
-                            ${statusStok(p.stok)}
+                        <div class="mb-2">
+                            ${badge}
+                            <small class="ms-1">Stok: ${item.stok}</small>
                         </div>
 
-                        <h6 class="text-primary fw-bold">
-                            ${rupiah(p.harga)}
-                        </h6>
-
-                        <small class="text-secondary">
-                            Stok: ${p.stok}
-                        </small>
-
-                        <button class="btn btn-primary btn-sm w-100 mt-2"
-                            onclick="tambahKeranjang(${p.id})"
-                            ${p.stok === 0 ? "disabled" : ""}>
-                            <i class="bi bi-cart-plus"></i>
-                            ${p.stok === 0 ? "Stok Habis" : "Beli"}
+                        <button class="btn btn-ungu btn-sm w-100 mb-2"
+                            onclick="tambahKeranjang(${item.id})"
+                            ${item.stok === 0 ? "disabled" : ""}>
+                            <i class="bi bi-cart-plus"></i> Beli
                         </button>
 
-                        <div class="d-flex gap-1 mt-2">
+                        <div class="d-flex gap-2">
                             <button class="btn btn-outline-secondary btn-sm w-50"
-                                onclick="editProduk(${p.id})">
-                                Edit
-                            </button>
-
+                                onclick="editProduk(${item.id})">Edit</button>
                             <button class="btn btn-outline-danger btn-sm w-50"
-                                onclick="hapusProduk(${p.id})">
-                                Hapus
-                            </button>
+                                onclick="hapusProduk(${item.id})">Hapus</button>
                         </div>
                     </div>
                 </div>
@@ -185,34 +123,34 @@ function tampilkanProduk() {
     });
 }
 
-// TAMBAH PRODUK
 function tambahProduk() {
-    const nama = prompt("Masukkan nama produk:");
+    let nama = prompt("Nama produk:");
     if (!nama || !nama.trim()) return;
 
-    const kategori = prompt("Kategori Makanan atau Minuman:");
+    let kategori = prompt("Kategori (Makanan/Minuman):", "Makanan");
+    if (!kategori) return;
+
+    kategori = kategori.trim();
+    kategori = kategori.charAt(0).toUpperCase() + kategori.slice(1).toLowerCase();
 
     if (!["Makanan", "Minuman"].includes(kategori)) {
-        alert("Kategori harus Makanan atau Minuman!");
+        alert("Kategori harus Makanan atau Minuman.");
         return;
     }
 
-    const harga = Number(prompt("Masukkan harga produk:"));
-
-    if (!Number.isSafeInteger(harga) || harga <= 0) {
-        alert("Harga tidak valid!");
+    let harga = Number(prompt("Harga produk:"));
+    if (!Number.isFinite(harga) || harga <= 0) {
+        alert("Harga tidak valid.");
         return;
     }
 
-    const stok = Number(prompt("Masukkan stok produk:"));
-
-    if (!Number.isSafeInteger(stok) || stok < 0) {
-        alert("Stok tidak valid!");
+    let stok = Number(prompt("Jumlah stok:"));
+    if (!Number.isInteger(stok) || stok < 0) {
+        alert("Stok tidak valid.");
         return;
     }
 
-    const gambar = prompt("Masukkan link gambar produk:") ||
-        "https://placehold.co/400x250?text=Produk";
+    let gambar = prompt("Link gambar produk:") || "https://placehold.co/500x300?text=Produk";
 
     produk.push({
         id: Date.now(),
@@ -220,341 +158,293 @@ function tambahProduk() {
         kategori,
         harga,
         stok,
-        gambar
+        gambar: gambar.trim()
     });
 
-    simpanProduk();
-    tampilkanSemua();
-
-    alert("Produk berhasil ditambahkan!");
+    simpanData();
+    perbaruiTampilan();
 }
 
-// EDIT PRODUK
 function editProduk(id) {
-    const p = produk.find(item => item.id === id);
-    if (!p) return;
+    let item = produk.find(p => p.id === id);
+    if (!item) return;
 
-    const nama = prompt("Nama produk:", p.nama);
+    let nama = prompt("Nama produk:", item.nama);
     if (!nama || !nama.trim()) return;
 
-    const harga = Number(prompt("Harga produk:", p.harga));
-    if (!Number.isSafeInteger(harga) || harga <= 0) {
-        alert("Harga tidak valid!");
+    let harga = Number(prompt("Harga:", item.harga));
+    let stok = Number(prompt("Stok:", item.stok));
+
+    if (!Number.isFinite(harga) || harga <= 0 ||
+        !Number.isInteger(stok) || stok < 0) {
+        alert("Harga atau stok tidak valid.");
         return;
     }
 
-    const stok = Number(prompt("Stok produk:", p.stok));
-    if (!Number.isSafeInteger(stok) || stok < 0) {
-        alert("Stok tidak valid!");
-        return;
-    }
+    let gambar = prompt("Link gambar:", item.gambar);
+    if (gambar === null) return;
 
-    p.nama = nama.trim();
-    p.harga = harga;
-    p.stok = stok;
+    item.nama = nama.trim();
+    item.harga = harga;
+    item.stok = stok;
+    item.gambar = gambar.trim();
 
-    simpanProduk();
-    tampilkanSemua();
-
-    alert("Produk berhasil diperbarui!");
+    simpanData();
+    perbaruiTampilan();
 }
 
-// HAPUS PRODUK
 function hapusProduk(id) {
     if (!confirm("Yakin ingin menghapus produk ini?")) return;
 
-    produk = produk.filter(p => p.id !== id);
-    keranjang = keranjang.filter(k => k.id !== id);
+    produk = produk.filter(item => item.id !== id);
+    keranjang = keranjang.filter(item => item.id !== id);
 
-    simpanProduk();
-    tampilkanSemua();
+    simpanData();
+    perbaruiTampilan();
 }
 
-// TAMBAH KE KERANJANG
 function tambahKeranjang(id) {
-    const p = produk.find(item => item.id === id);
+    let item = produk.find(p => p.id === id);
+    if (!item || item.stok <= 0) return;
 
-    if (!p || p.stok <= 0) {
-        alert("Stok produk habis!");
-        return;
-    }
+    let ada = keranjang.find(p => p.id === id);
 
-    const item = keranjang.find(k => k.id === id);
-
-    if (item) {
-        if (item.jumlah >= p.stok) {
-            alert("Jumlah pembelian melebihi stok!");
+    if (ada) {
+        if (ada.jumlah >= item.stok) {
+            alert("Jumlah melebihi stok tersedia.");
             return;
         }
-        item.jumlah++;
+        ada.jumlah++;
     } else {
-        keranjang.push({
-            id: p.id,
-            nama: p.nama,
-            harga: p.harga,
-            jumlah: 1
-        });
+        keranjang.push({...item, jumlah: 1});
     }
 
-    tampilkanSemua();
+    tampilkanKeranjang();
 }
 
-// UBAH JUMLAH KERANJANG
 function ubahJumlah(id, perubahan) {
-    const item = keranjang.find(k => k.id === id);
-    const p = produk.find(k => k.id === id);
+    let item = keranjang.find(p => p.id === id);
+    let dataProduk = produk.find(p => p.id === id);
 
-    if (!item || !p) return;
+    if (!item || !dataProduk) return;
 
-    const jumlahBaru = item.jumlah + perubahan;
+    item.jumlah += perubahan;
 
-    if (jumlahBaru > p.stok) {
-        alert("Stok tidak mencukupi!");
-        return;
+    if (item.jumlah <= 0) {
+        keranjang = keranjang.filter(p => p.id !== id);
+    } else if (item.jumlah > dataProduk.stok) {
+        item.jumlah = dataProduk.stok;
+        alert("Jumlah sudah mencapai stok tersedia.");
     }
 
-    if (jumlahBaru <= 0) {
-        keranjang = keranjang.filter(k => k.id !== id);
-    } else {
-        item.jumlah = jumlahBaru;
-    }
-
-    tampilkanSemua();
+    tampilkanKeranjang();
 }
 
-// HITUNG TOTAL
-function hitungTotal() {
+function totalKeranjang() {
     return keranjang.reduce((total, item) =>
         total + item.harga * item.jumlah, 0
     );
 }
 
-// TAMPILKAN KERANJANG
 function tampilkanKeranjang() {
     const tempat = document.getElementById("keranjang");
+    tempat.innerHTML = "";
 
     if (keranjang.length === 0) {
-        tempat.innerHTML = `
-            <div class="text-center py-4 text-secondary">
-                <i class="bi bi-basket3 fs-1"></i>
-                <p class="mt-2">Keranjang masih kosong.</p>
-            </div>`;
-    } else {
-        tempat.innerHTML = keranjang.map(item => `
-            <div class="cart-item">
-                <div class="d-flex justify-content-between align-items-center gap-2">
+        tempat.innerHTML = `<p class="text-secondary text-center">Belum ada produk dipilih.</p>`;
+    }
 
+    keranjang.forEach(item => {
+        tempat.innerHTML += `
+            <div class="keranjang-item">
+                <div class="d-flex justify-content-between">
+                    <strong>${aman(item.nama)}</strong>
+                    <span>${rupiah(item.harga * item.jumlah)}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <small>${rupiah(item.harga)} / item</small>
                     <div>
-                        <strong>${item.nama}</strong>
-                        <div class="small text-secondary">
-                            ${rupiah(item.harga)} x ${item.jumlah}
-                        </div>
-                    </div>
-
-                    <div class="text-end">
-                        <strong>${rupiah(item.harga * item.jumlah)}</strong>
-
-                        <div class="mt-2">
-                            <button class="btn btn-sm btn-outline-secondary"
-                                onclick="ubahJumlah(${item.id},-1)">−</button>
-
-                            <button class="btn btn-sm btn-outline-secondary"
-                                onclick="ubahJumlah(${item.id},1)">+</button>
-                        </div>
+                        <button class="btn btn-sm btn-light"
+                            onclick="ubahJumlah(${item.id}, -1)">−</button>
+                        <span class="mx-2">${item.jumlah}</span>
+                        <button class="btn btn-sm btn-light"
+                            onclick="ubahJumlah(${item.id}, 1)">+</button>
                     </div>
                 </div>
             </div>
-        `).join("");
-    }
+        `;
+    });
 
-    document.getElementById("totalBelanja").textContent =
-        rupiah(hitungTotal());
-
+    document.getElementById("totalBelanja").textContent = rupiah(totalKeranjang());
     hitungKembalian();
 }
 
-// KALKULATOR KEMBALIAN
-function hitungKembalian() {
-    const metode = document.getElementById("metode").value;
-    const bagianTunai = document.getElementById("bagianTunai");
-
-    const uang = Number(document.getElementById("uangBayar").value) || 0;
-    const total = hitungTotal();
-
-    bagianTunai.style.display = metode === "Tunai" ? "block" : "none";
-
-    if (metode !== "Tunai") {
-        document.getElementById("kembalian").textContent = rupiah(0);
-        document.getElementById("statusPembayaran").textContent = "";
-        return;
-    }
-
-    const selisih = uang - total;
-
-    document.getElementById("kembalian").textContent =
-        rupiah(Math.max(0, selisih));
-
-    document.getElementById("statusPembayaran").textContent =
-        uang < total ? "Uang pembayaran masih kurang!" : "Pembayaran mencukupi.";
+function ubahMetode() {
+    let metode = document.getElementById("metode").value;
+    document.getElementById("bagianTunai").style.display =
+        metode === "Tunai" ? "block" : "none";
 }
 
-// PROSES TRANSAKSI
-function prosesTransaksi() {
+function hitungKembalian() {
+    let total = totalKeranjang();
+    let uang = Number(document.getElementById("uangBayar").value) || 0;
+
+    let kembalian = Math.max(0, uang - total);
+    document.getElementById("kembalian").textContent = rupiah(kembalian);
+}
+
+function prosesPembayaran() {
     if (keranjang.length === 0) {
-        alert("Keranjang masih kosong!");
+        alert("Keranjang masih kosong.");
         return;
     }
 
-    // VALIDASI STOK
-    for (const item of keranjang) {
-        const p = produk.find(k => k.id === item.id);
-
-        if (!p || p.stok < item.jumlah) {
-            alert("Stok " + item.nama + " tidak mencukupi!");
-            tampilkanSemua();
+    for (let item of keranjang) {
+        let data = produk.find(p => p.id === item.id);
+        if (!data || item.jumlah > data.stok) {
+            alert("Stok " + item.nama + " tidak mencukupi.");
             return;
         }
     }
 
-    const total = hitungTotal();
-    const metode = document.getElementById("metode").value;
-    const uang = Number(document.getElementById("uangBayar").value) || 0;
+    let total = totalKeranjang();
+    let metode = document.getElementById("metode").value;
+    let uang = metode === "Tunai"
+        ? Number(document.getElementById("uangBayar").value) || 0
+        : total;
 
-    if (metode === "Tunai" && uang < total) {
-        alert("Uang pembayaran kurang!");
+    if (uang < total) {
+        alert("Uang pembayaran masih kurang.");
         return;
     }
 
-    const waktu = new Date();
-    const kembalian = metode === "Tunai" ? uang - total : 0;
+    if (metode !== "Tunai" &&
+        !confirm("Apakah pembayaran melalui " + metode + " sudah diterima?")) {
+        return;
+    }
 
-    // KURANGI STOK
     keranjang.forEach(item => {
-        const p = produk.find(k => k.id === item.id);
-        p.stok -= item.jumlah;
+        let data = produk.find(p => p.id === item.id);
+        data.stok -= item.jumlah;
     });
 
-    // SIMPAN TRANSAKSI
-    const transaksi = {
-        id: Date.now(),
-        waktu: waktu.toLocaleString("id-ID"),
-        tanggal: waktu.toLocaleDateString("en-CA"),
+    let transaksi = {
+        nomor: "TRX-" + Date.now(),
+        waktu: new Date().toISOString(),
         total,
         metode,
-        uang: metode === "Tunai" ? uang : total,
-        kembalian,
-        items: keranjang.map(item => ({...item}))
+        uang,
+        kembalian: uang - total,
+        barang: keranjang.map(item => ({...item}))
     };
 
     riwayat.unshift(transaksi);
 
-    simpanProduk();
-    simpanRiwayat();
-
-    cetakNota(transaksi);
+    buatStruk(transaksi);
 
     keranjang = [];
     document.getElementById("uangBayar").value = "";
 
-    tampilkanSemua();
+    simpanData();
+    perbaruiTampilan();
 
-    alert("Transaksi berhasil disimpan!");
+    // Tampilkan struk langsung di halaman.
+    document.getElementById("receipt").style.display = "block";
+    document.getElementById("receipt").scrollIntoView({behavior: "smooth"});
 
-    window.print();
+    alert("Pembayaran berhasil! Struk transaksi sudah ditampilkan.");
 }
 
-// CETAK NOTA
-function cetakNota(t) {
-    const tempat = document.getElementById("receipt");
+function buatStruk(data) {
+    let isiBarang = data.barang.map(item => `
+        <tr>
+            <td colspan="2">${aman(item.nama)}</td>
+        </tr>
+        <tr>
+            <td>${item.jumlah} x ${rupiah(item.harga)}</td>
+            <td class="text-end">${rupiah(item.jumlah * item.harga)}</td>
+        </tr>
+    `).join("");
 
-    tempat.innerHTML = `
-        <div style="text-align:center">
-            <h3>MINI POS</h3>
-            <p>Kasir Digital</p>
-            <hr>
+    document.getElementById("receipt").innerHTML = `
+        <div class="text-center">
+            <div class="receipt-logo">
+                <i class="bi bi-bag-heart"></i>
+            </div>
+            <h4 class="receipt-title mt-2">LAVENDER STORE</h4>
+            <p class="receipt-subtitle mb-1">Kasir Digital</p>
+            <small>Terima kasih sudah berbelanja!</small>
         </div>
 
-        <p>No: ${t.id}</p>
-        <p>Waktu: ${t.waktu}</p>
-        <hr>
+        <div class="receipt-line"></div>
 
-        ${t.items.map(item => `
-            <div style="margin-bottom:10px">
-                ${item.nama}<br>
-                ${item.jumlah} x ${rupiah(item.harga)}
-                <span style="float:right">
-                    ${rupiah(item.harga * item.jumlah)}
-                </span>
+        <div class="d-flex justify-content-between small">
+            <span>No. Transaksi</span>
+            <span>${aman(data.nomor)}</span>
+        </div>
+        <div class="d-flex justify-content-between small mt-1">
+            <span>Tanggal</span>
+            <span>${tanggalWaktu()}</span>
+        </div>
+
+        <div class="receipt-line"></div>
+
+        <table class="receipt-table">
+            ${isiBarang}
+        </table>
+
+        <div class="receipt-line"></div>
+
+        <div class="receipt-total">
+            <div class="d-flex justify-content-between">
+                <strong>Total Belanja</strong>
+                <strong>${rupiah(data.total)}</strong>
             </div>
-        `).join("")}
+            <div class="d-flex justify-content-between mt-2 small">
+                <span>Metode Pembayaran</span>
+                <span>${aman(data.metode)}</span>
+            </div>
+            <div class="d-flex justify-content-between mt-1 small">
+                <span>Uang Diterima</span>
+                <span>${rupiah(data.uang)}</span>
+            </div>
+            <div class="d-flex justify-content-between mt-1 small">
+                <span>Kembalian</span>
+                <span>${rupiah(data.kembalian)}</span>
+            </div>
+        </div>
 
-        <hr>
-        <p>Total: <strong>${rupiah(t.total)}</strong></p>
-        <p>Metode: ${t.metode}</p>
-        <p>Bayar: ${rupiah(t.uang)}</p>
-        <p>Kembalian: ${rupiah(t.kembalian)}</p>
-        <hr>
-        <p style="text-align:center">
-            Terima kasih telah berbelanja!
-        </p>
+        <div class="text-center receipt-footer mt-4">
+            <strong>Terima Kasih!</strong>
+            <p class="mb-0">Semoga hari Anda menyenangkan.</p>
+            <small>Lavender Store - Belanja jadi lebih mudah</small>
+        </div>
     `;
 }
 
-// RIWAYAT TRANSAKSI
 function tampilkanRiwayat() {
     const tempat = document.getElementById("daftarRiwayat");
+    tempat.innerHTML = "";
 
     if (riwayat.length === 0) {
         tempat.innerHTML = `
-            <tr>
-                <td colspan="4" class="text-center text-secondary">
-                    Belum ada transaksi
-                </td>
-            </tr>`;
+            <tr><td colspan="4" class="text-center text-secondary">
+                Belum ada transaksi.
+            </td></tr>`;
         return;
     }
 
-    tempat.innerHTML = riwayat.map((t, i) => `
-        <tr>
-            <td>${i + 1}</td>
-            <td>${t.waktu}</td>
-            <td>${rupiah(t.total)}</td>
-            <td>
-                <span class="badge bg-primary">${t.metode}</span>
-            </td>
-        </tr>
-    `).join("");
+    riwayat.forEach((item, index) => {
+        tempat.innerHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${new Date(item.waktu).toLocaleString("id-ID")}</td>
+                <td>${rupiah(item.total)}</td>
+                <td>${aman(item.metode)}</td>
+            </tr>
+        `;
+    });
 }
 
-// DASHBOARD
-function tampilkanDashboard() {
-    const hariIni = new Date().toLocaleDateString("en-CA");
-
-    const transaksiHariIni = riwayat.filter(t =>
-        t.tanggal === hariIni
-    );
-
-    const omzet = transaksiHariIni.reduce((sum, t) =>
-        sum + t.total, 0
-    );
-
-    const stok = produk.reduce((sum, p) =>
-        sum + p.stok, 0
-    );
-
-    document.getElementById("omzet").textContent = rupiah(omzet);
-    document.getElementById("totalStok").textContent = stok;
-    document.getElementById("jumlahTransaksi").textContent =
-        transaksiHariIni.length;
-}
-
-// TAMPILKAN SEMUA
-function tampilkanSemua() {
-    tampilkanProduk();
-    tampilkanKeranjang();
-    tampilkanRiwayat();
-    tampilkanDashboard();
-}
-
-// JALANKAN APLIKASI
-tampilkanSemua();
+perbaruiTampilan();
+ubahMetode();
