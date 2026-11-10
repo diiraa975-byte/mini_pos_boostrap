@@ -2,679 +2,332 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lavender POS | Kasir Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavender POS - Kasir Digital</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-<style>
-:root {
-    --purple: #8065d8;
-    --purple-dark: #302650;
-    --lavender: #f3efff;
-    --bg: #f8f7fc;
-    --text: #292541;
-    --muted: #9894aa;
-}
+    <style>
+        :root {
+            --ungu: #8b6ccf;
+            --ungu-muda: #eee8ff;
+            --latar: #f7f5fc;
+            --teks: #39334b;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        body {
+            background: var(--latar);
+            color: var(--teks);
+            font-family: Arial, sans-serif;
+        }
 
-body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', sans-serif;
-}
+        .navbar {
+            background: linear-gradient(100deg, #8b6ccf, #b49be9);
+        }
 
-/* SIDEBAR */
-.sidebar {
-    background: linear-gradient(180deg,#302650,#493775);
-    min-height: 100vh;
-    padding: 28px 19px;
-    color: white;
-}
+        .navbar-brand {
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+        }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 23px;
-    font-weight: 800;
-    margin-bottom: 45px;
-}
+        .card {
+            border: none;
+            border-radius: 17px;
+            box-shadow: 0 4px 15px #59428b12;
+        }
 
-.brand-icon {
-    background: #8065d8;
-    width: 43px;
-    height: 43px;
-    display: grid;
-    place-items: center;
-    border-radius: 14px;
-}
+        .dashboard-card {
+            padding: 20px;
+            background: white;
+        }
 
-.menu-label {
-    color: #aaa0c7;
-    font-size: 11px;
-    letter-spacing: 2px;
-    margin: 25px 10px 12px;
-}
+        .dashboard-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--ungu-muda);
+            color: var(--ungu);
+            border-radius: 13px;
+            font-size: 22px;
+        }
 
-.sidebar a {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    color: #d1c9e5;
-    text-decoration: none;
-    padding: 13px 15px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    transition: .25s;
-    font-size: 14px;
-}
+        .judul {
+            font-weight: bold;
+            color: #554477;
+        }
 
-.sidebar a i {
-    font-size: 19px;
-}
+        .btn-ungu {
+            background: var(--ungu);
+            color: white;
+            border: none;
+        }
 
-.sidebar a:hover,
-.sidebar a.active {
-    background: #8065d8;
-    color: white;
-    box-shadow: 0 5px 15px #17102d55;
-}
+        .btn-ungu:hover {
+            background: #7253b4;
+            color: white;
+        }
 
-.sidebar-footer {
-    margin-top: 55px;
-    padding: 15px;
-    background: #ffffff12;
-    border-radius: 14px;
-    font-size: 12px;
-    color: #d1c9e5;
-}
+        .produk-card {
+            height: 100%;
+            overflow: hidden;
+        }
 
-/* MAIN */
-.main-content {
-    padding: 30px;
-}
+        .produk-card img {
+            width: 100%;
+            height: 155px;
+            object-fit: cover;
+        }
 
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
+        .badge-aman {
+            background: #d9f5e4;
+            color: #16834a;
+        }
 
-.page-title {
-    font-size: 27px;
-    font-weight: 800;
-}
+        .badge-menipis {
+            background: #fff0c7;
+            color: #946600;
+        }
 
-.subtitle {
-    color: var(--muted);
-    font-size: 13px;
-}
+        .badge-habis {
+            background: #ffe0e0;
+            color: #c32d2d;
+        }
 
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: white;
-    padding: 9px 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 18px #30265008;
-}
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 10px;
+        }
 
-.profile-icon {
-    background: var(--lavender);
-    color: var(--purple);
-    width: 39px;
-    height: 39px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    font-size: 19px;
-}
+        .keranjang-item {
+            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+        }
 
-/* DASHBOARD */
-.metric-card {
-    background: white;
-    padding: 23px;
-    border: 1px solid #f0edf8;
-    border-radius: 19px;
-    box-shadow: 0 5px 25px #30265008;
-    height: 100%;
-    transition: .25s;
-}
+        #receipt {
+            display: none;
+            background: white;
+            max-width: 430px;
+            margin: 25px auto;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 18px #59428b18;
+        }
 
-.metric-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px #30265012;
-}
+        .receipt-logo {
+            width: 55px;
+            height: 55px;
+            margin: auto;
+            border-radius: 50%;
+            background: var(--ungu-muda);
+            color: var(--ungu);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
 
-.metric-icon {
-    width: 49px;
-    height: 49px;
-    display: grid;
-    place-items: center;
-    border-radius: 15px;
-    font-size: 22px;
-}
+        .receipt-title {
+            color: #7656b6;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
 
-.icon-purple {
-    background: #eee8ff;
-    color: #8065d8;
-}
+        .receipt-line {
+            border-top: 1px dashed #b9aecb;
+            margin: 15px 0;
+        }
 
-.icon-pink {
-    background: #ffeaf2;
-    color: #e77ba6;
-}
+        .receipt-table {
+            width: 100%;
+            font-size: 13px;
+        }
 
-.icon-blue {
-    background: #e8f1ff;
-    color: #5d91d9;
-}
+        .receipt-table td {
+            padding: 5px 0;
+        }
 
-.metric-label {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 16px;
-}
+        .receipt-total {
+            background: #f1ebff;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
 
-.metric-value {
-    font-size: 25px;
-    font-weight: 800;
-    margin-top: 5px;
-}
+        .receipt-footer {
+            color: #806e9e;
+            font-size: 12px;
+        }
 
-/* SECTION */
-.section-card {
-    background: white;
-    padding: 24px;
-    border-radius: 20px;
-    border: 1px solid #f0edf8;
-    box-shadow: 0 5px 25px #30265008;
-    margin-bottom: 25px;
-}
+        @media print {
+            body * {
+                visibility: hidden;
+            }
 
-.section-title {
-    font-size: 19px;
-    font-weight: 800;
-}
+            #receipt, #receipt * {
+                visibility: visible;
+            }
 
-.section-subtitle {
-    font-size: 12px;
-    color: var(--muted);
-}
-
-/* INPUT */
-.form-control,
-.form-select {
-    border: 1px solid #eae6f3;
-    background: #fbfaff;
-    border-radius: 11px;
-    padding: 11px 14px;
-    font-size: 13px;
-}
-
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px #8065d820;
-}
-
-/* BUTTON */
-.btn-primary {
-    background: var(--purple);
-    border-color: var(--purple);
-    border-radius: 11px;
-    padding: 10px 17px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.btn-primary:hover {
-    background: #694fc1;
-    border-color: #694fc1;
-}
-
-.btn-outline-secondary,
-.btn-outline-danger {
-    border-radius: 9px;
-    font-size: 12px;
-}
-
-/* PRODUCT */
-.product-card {
-    background: white;
-    border: 1px solid #f0edf8;
-    border-radius: 16px;
-    overflow: hidden;
-    height: 100%;
-    transition: .25s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px #30265015;
-}
-
-.product-img {
-    width: 100%;
-    height: 145px;
-    object-fit: cover;
-    background: #eeeaf8;
-}
-
-.product-card .card-body {
-    padding: 14px;
-}
-
-.product-card h6 {
-    font-size: 14px;
-    min-height: 34px;
-    margin-bottom: 5px;
-}
-
-.stock-badge {
-    border-radius: 20px;
-    padding: 6px 10px;
-    font-size: 10px;
-}
-
-.product-card .btn {
-    font-size: 12px;
-    border-radius: 9px;
-}
-
-/* CART */
-.cart-item {
-    padding: 15px 0;
-    border-bottom: 1px solid #f0edf5;
-}
-
-.cart-item button {
-    border-radius: 8px;
-}
-
-.cart-total {
-    background: var(--lavender);
-    padding: 18px;
-    border-radius: 14px;
-}
-
-.checkout-btn {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 14px;
-}
-
-/* TABLE */
-.table {
-    font-size: 13px;
-}
-
-.table thead th {
-    background: #f7f4ff;
-    color: #72658f;
-    padding: 14px;
-    border: none;
-}
-
-.table tbody td {
-    padding: 14px;
-}
-
-/* PRINT */
-#receipt {
-    display: none;
-}
-
-@media print {
-    body * {
-        visibility: hidden !important;
-    }
-
-    #receipt,
-    #receipt * {
-        visibility: visible !important;
-    }
-
-    #receipt {
-        display: block !important;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 300px;
-        padding: 15px;
-        color: black;
-        font-family: monospace;
-    }
-
-    @page {
-        size: 80mm auto;
-        margin: 3mm;
-    }
-}
-
-/* RESPONSIVE */
-@media(max-width:767px) {
-    .sidebar {
-        min-height: auto;
-        padding: 15px;
-    }
-
-    .brand {
-        margin-bottom: 15px;
-    }
-
-    .sidebar nav {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-
-    .sidebar a {
-        margin: 0;
-        padding: 9px 12px;
-        font-size: 12px;
-    }
-
-    .menu-label,
-    .sidebar-footer {
-        display: none;
-    }
-
-    .main-content {
-        padding: 17px;
-    }
-
-    .page-title {
-        font-size: 22px;
-    }
-
-    .section-card {
-        padding: 16px;
-    }
-
-    .topbar {
-        align-items: flex-start;
-    }
-}
-</style>
+            #receipt {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                max-width: 80mm;
+                margin: 0;
+                padding: 5mm;
+                box-shadow: none;
+                border-radius: 0;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container-fluid">
-<div class="row">
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-bag-heart"></i> Lavender POS
+        </a>
+        <span class="text-white">Kasir Digital</span>
+    </div>
+</nav>
 
-<!-- SIDEBAR -->
-<aside class="col-md-2 sidebar">
+<div class="container py-4">
 
-    <div class="brand">
-        <div class="brand-icon">
-            <i class="bi bi-shop"></i>
-        </div>
-        <span>Mini POS</span>
+    <div class="mb-4">
+        <h3 class="judul">Dashboard Kasir</h3>
+        <p class="text-secondary mb-0">Selamat datang di Lavender Store!</p>
+        <small id="tanggal"></small>
     </div>
 
-    <div class="menu-label">MENU UTAMA</div>
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="dashboard-icon"><i class="bi bi-wallet2"></i></div>
+                <p class="text-secondary mt-3 mb-1">Omzet Hari Ini</p>
+                <h4 id="omzet">Rp0</h4>
+            </div>
+        </div>
 
-    <nav>
-        <a href="#dashboard" class="active">
-            <i class="bi bi-grid-1x2-fill"></i> Dashboard
-        </a>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="dashboard-icon"><i class="bi bi-box-seam"></i></div>
+                <p class="text-secondary mt-3 mb-1">Total Stok</p>
+                <h4 id="totalStok">0</h4>
+            </div>
+        </div>
 
-        <a href="#produk">
-            <i class="bi bi-box-seam"></i> Produk
-        </a>
-
-        <a href="#kasir">
-            <i class="bi bi-cart3"></i> Kasir
-        </a>
-
-        <a href="#riwayat">
-            <i class="bi bi-receipt"></i> Riwayat Transaksi
-        </a>
-    </nav>
-
-    <div class="sidebar-footer">
-        <i class="bi bi-stars"></i>
-        <strong>Mini POS Digital</strong>
-        <p class="mb-0 mt-2">Kelola penjualan dengan lebih mudah dan praktis.</p>
+        <div class="col-md-4">
+            <div class="card dashboard-card">
+                <div class="dashboard-icon"><i class="bi bi-receipt"></i></div>
+                <p class="text-secondary mt-3 mb-1">Jumlah Transaksi</p>
+                <h4 id="jumlahTransaksi">0</h4>
+            </div>
+        </div>
     </div>
 
-</aside>
+    <div class="row g-4">
 
-<!-- MAIN CONTENT -->
-<main class="col-md-10 main-content">
+        <div class="col-lg-8">
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5 class="judul mb-0">Daftar Produk</h5>
+                    <button class="btn btn-ungu" onclick="tambahProduk()">
+                        <i class="bi bi-plus-circle"></i> Tambah Produk
+                    </button>
+                </div>
 
-    <!-- HEADER -->
-    <header class="topbar">
-        <div>
-            <h3 class="page-title mb-1">Dashboard</h3>
-            <p class="subtitle mb-0">Selamat datang! Kelola tokomu hari ini.</p>
+                <div class="row g-2 mb-3">
+                    <div class="col-md-7">
+                        <input type="text" id="searchProduk" class="form-control"
+                            placeholder="Cari nama produk..." oninput="tampilkanProduk()">
+                    </div>
+                    <div class="col-md-5">
+                        <select id="filterKategori" class="form-select" onchange="tampilkanProduk()">
+                            <option value="Semua">Semua Kategori</option>
+                            <option value="Makanan">Makanan</option>
+                            <option value="Minuman">Minuman</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3" id="daftarProduk"></div>
+            </div>
         </div>
 
-        <div class="profile">
-            <div class="profile-icon">
-                <i class="bi bi-person-fill"></i>
-            </div>
-            <div>
-                <strong style="font-size:13px">Admin Kasir</strong>
-                <div class="subtitle">Administrator</div>
-            </div>
-        </div>
-    </header>
-
-    <!-- DASHBOARD -->
-    <section id="dashboard">
-
-        <div class="row g-3 mb-4">
-
-            <div class="col-md-4">
-                <div class="metric-card">
-                    <div class="d-flex justify-content-between">
-                        <div class="metric-icon icon-purple">
-                            <i class="bi bi-wallet2"></i>
-                        </div>
-                        <span class="badge bg-light text-secondary">Harian</span>
-                    </div>
-
-                    <div class="metric-label">Total Omzet Hari Ini</div>
-                    <div class="metric-value" id="omzet">Rp0</div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="metric-card">
-                    <div class="d-flex justify-content-between">
-                        <div class="metric-icon icon-pink">
-                            <i class="bi bi-box-seam"></i>
-                        </div>
-                        <span class="badge bg-light text-secondary">Produk</span>
-                    </div>
-
-                    <div class="metric-label">Total Stok Barang</div>
-                    <div class="metric-value" id="totalStok">0</div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="metric-card">
-                    <div class="d-flex justify-content-between">
-                        <div class="metric-icon icon-blue">
-                            <i class="bi bi-receipt-cutoff"></i>
-                        </div>
-                        <span class="badge bg-light text-secondary">Harian</span>
-                    </div>
-
-                    <div class="metric-label">Jumlah Transaksi Hari Ini</div>
-                    <div class="metric-value" id="jumlahTransaksi">0</div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- PRODUK -->
-    <section id="produk" class="section-card">
-
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
-            <div>
-                <h5 class="section-title mb-1">
-                    <i class="bi bi-bag-heart-fill text-primary"></i>
-                    Daftar Produk
+        <div class="col-lg-4">
+            <div class="card p-3">
+                <h5 class="judul mb-3">
+                    <i class="bi bi-cart3"></i> Keranjang
                 </h5>
-                <p class="section-subtitle mb-0">Temukan dan kelola produk tokomu.</p>
-            </div>
 
-            <button class="btn btn-primary" onclick="tambahProduk()">
-                <i class="bi bi-plus-circle"></i> Tambah Produk
-            </button>
-        </div>
-
-        <div class="row g-2 mb-4">
-
-            <div class="col-md-7">
-                <div class="input-group">
-                    <span class="input-group-text bg-light border-0">
-                        <i class="bi bi-search text-secondary"></i>
-                    </span>
-                    <input type="text" id="searchProduk"
-                    class="form-control border-0"
-                    placeholder="Cari nama produk..."
-                    oninput="tampilkanProduk()">
+                <div id="keranjang">
+                    <p class="text-secondary text-center">Belum ada produk dipilih.</p>
                 </div>
-            </div>
 
-            <div class="col-md-5">
-                <select id="filterKategori" class="form-select"
-                onchange="tampilkanProduk()">
-                    <option value="Semua">Semua Kategori</option>
-                    <option value="Makanan">Makanan</option>
-                    <option value="Minuman">Minuman</option>
-                </select>
-            </div>
+                <hr>
 
-        </div>
+                <div class="d-flex justify-content-between">
+                    <strong>Total Belanja</strong>
+                    <strong id="totalBelanja">Rp0</strong>
+                </div>
 
-        <div class="row g-3" id="daftarProduk"></div>
+                <div class="mt-3">
+                    <label class="form-label">Metode Pembayaran</label>
+                    <select id="metode" class="form-select" onchange="ubahMetode()">
+                        <option value="Tunai">Tunai</option>
+                        <option value="QRIS">QRIS</option>
+                        <option value="Transfer Bank">Transfer Bank</option>
+                    </select>
+                </div>
 
-    </section>
+                <div id="bagianTunai" class="mt-3">
+                    <label class="form-label">Uang Pembayaran</label>
+                    <input type="number" id="uangBayar" class="form-control"
+                        placeholder="Masukkan jumlah uang" oninput="hitungKembalian()">
 
-    <!-- KASIR -->
-    <section id="kasir" class="section-card">
+                    <div class="d-flex justify-content-between mt-2">
+                        <span>Kembalian</span>
+                        <strong id="kembalian">Rp0</strong>
+                    </div>
+                </div>
 
-        <div class="mb-4">
-            <h5 class="section-title mb-1">
-                <i class="bi bi-cart-check-fill text-primary"></i>
-                Keranjang Belanja
-            </h5>
-            <p class="section-subtitle mb-0">Periksa barang sebelum menyelesaikan transaksi.</p>
-        </div>
-
-        <div id="keranjang">
-            <p class="text-secondary text-center py-4">
-                Belum ada produk di keranjang.
-            </p>
-        </div>
-
-        <div class="cart-total mt-3 mb-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-semibold">Total Pembayaran</span>
-                <h4 class="fw-bold mb-0 text-primary" id="totalBelanja">Rp0</h4>
+                <button class="btn btn-ungu w-100 mt-3" onclick="prosesPembayaran()">
+                    <i class="bi bi-check-circle"></i> Selesaikan Pembayaran
+                </button>
             </div>
         </div>
 
-        <label class="form-label fw-semibold">
-            <i class="bi bi-credit-card text-primary"></i>
-            Metode Pembayaran
-        </label>
+    </div>
 
-        <select id="metode" class="form-select mb-3"
-        onchange="hitungKembalian()">
-            <option value="Tunai">Tunai</option>
-            <option value="QRIS">QRIS</option>
-            <option value="Transfer Bank">Transfer Bank</option>
-        </select>
-
-        <div id="bagianTunai">
-
-            <label class="form-label fw-semibold">Uang Pembayaran</label>
-
-            <input type="number" id="uangBayar"
-            class="form-control"
-            placeholder="Masukkan jumlah uang..."
-            min="0"
-            oninput="hitungKembalian()">
-
-            <div class="d-flex justify-content-between mt-3">
-                <span>Kembalian</span>
-                <strong id="kembalian" class="text-success">Rp0</strong>
-            </div>
-
-            <small id="statusPembayaran" class="text-danger"></small>
-
-        </div>
-
-        <button class="btn btn-primary checkout-btn mt-4"
-        onclick="prosesTransaksi()">
-            <i class="bi bi-check-circle-fill"></i>
-            Selesaikan Transaksi
-        </button>
-
-    </section>
-
-    <!-- RIWAYAT -->
-    <section id="riwayat" class="section-card">
-
-        <h5 class="section-title mb-1">
-            <i class="bi bi-clock-history text-primary"></i>
-            Riwayat Transaksi
-        </h5>
-
-        <p class="section-subtitle mb-4">
-            Catatan seluruh transaksi penjualan.
-        </p>
-
+    <div class="card p-3 mt-4">
+        <h5 class="judul mb-3">Riwayat Transaksi</h5>
         <div class="table-responsive">
-            <table class="table table-hover align-middle">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Waktu</th>
+                        <th>Tanggal</th>
                         <th>Total</th>
                         <th>Pembayaran</th>
                     </tr>
                 </thead>
-
                 <tbody id="daftarRiwayat"></tbody>
             </table>
         </div>
+    </div>
 
-    </section>
+    <div id="receipt"></div>
 
-    <footer class="text-center text-secondary small py-3">
-        <i class="bi bi-heart-fill text-danger"></i>
-        Mini POS Digital © 2026 | Sistem Kasir Sederhana
-    </footer>
-
-</main>
 </div>
-</div>
-
-<!-- NOTA -->
-<div id="receipt"></div>
 
 <script src="app.js"></script>
-
 </body>
 </html>
